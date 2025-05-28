@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Cut" ADD COLUMN     "status" INTEGER NOT NULL DEFAULT 0;

@@ -1,0 +1,134 @@
+.pecas-page {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 60px 20px 60px;
+    background-color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.pecas-header {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.pecas-header h1 {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+}
+
+.pecas-content {
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 20px;
+    width: 100%;
+}
+
+.add-peca-button {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.add-peca-button:hover {
+  background-color: rgb(49, 49, 49);
+}
+
+
+
+
+
+
+.pecas-table-container {
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  overflow-x: auto; 
+}
+
+.pecas-table-header {
+    background-color: #F2F2F7;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse; 
+  font-size: 14px;
+  color: #333;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+th {
+  background-color: #f7fafc;
+  font-weight: 600;
+  color: #4a5568;
+  white-space: nowrap;
+  border-bottom: 1px solid #e2e8f0; 
+}
+
+
+tbody tr {
+  position: relative;
+  cursor: pointer;
+}
+
+tbody tr:hover {
+  background-color: #f7fafc;
+}
+
+tbody tr::after {
+  content: '';
+  position: absolute;
+  bottom: 0; 
+  height: 1px; 
+  background-color: #d1d7df; 
+
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%; 
+}
+
+
+tbody tr:last-child::after {
+  display: none;
+}
+
+
+.status-pill {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  text-transform: capitalize;
+}
+
+.status-pill.ativo {
+  background-color: #C6F6D5;
+  color: #2F855A;
+}
+
+.status-pill.expirado { 
+  background-color: #FED7D7;
+  color: #C53030;
+}
+
+.status-pill.pendente { 
+  background-color: #FEFCBF;
+  color: #B7791F; 
+}

@@ -1,0 +1,63 @@
+
+.peca-form-header {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 40px 80px 40px 80px;
+  background-color: #F2F2F7;
+  border-bottom: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+  height: 0px;
+}
+
+
+.peca-form-controls {
+  display: flex;
+  gap: 1rem;
+}
+
+
+.peca-form-button {
+  padding: 15px 25px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 5px;
+  font-family: sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-decoration: none;
+}
+
+
+.descartar {
+  background-color: #fff;
+  color: #000;
+}
+
+.descartar:hover {
+  background-color: #e0e0e0;
+}
+
+
+.salvar {
+  background-color: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.salvar:hover {
+  background-color: #333;
+  border-color: #333;
+}
+
+
+@media (max-width: 768px) {
+  .peca-form-header, .peca-form-controls { 
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+}

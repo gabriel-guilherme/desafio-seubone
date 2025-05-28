@@ -1,0 +1,221 @@
+.peca-form-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: white;
+}
+
+.peca-form-content-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 80px;
+}
+
+.peca-form-back {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+.peca-form-back:hover {
+  background-color: #f0f0f0;
+}
+
+.peca-form-info {
+  display: flex;
+  flex-direction: row;
+  margin: 0px 80px;
+  flex: 1;
+  gap: 20px;
+}
+
+.peca-form-especificacoes {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px;
+  border: 1px solid #D1D1D6;
+  border-radius: 20px;
+  flex: 1;
+}
+
+.peca-form-especificacoes h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.peca-form-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, auto);
+  gap: 24px;
+  grid-auto-flow: column;
+}
+
+.peca-form-list-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.peca-form-dados {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 0px 20px;
+  border-radius: 20px;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.peca-form-dados h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.peca-form-upload {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px;
+  border: 1px solid #D1D1D6;
+  border-radius: 20px;
+  margin: 30px 80px;
+  height: 250px;
+}
+
+.peca-form-upload h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.peca-form-upload-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.peca-form-upload-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex-grow: 1;
+}
+
+.peca-form-upload-preview {
+  width: 300px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+
+.peca-form-upload-image {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+.peca-form-upload-remove {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: none;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 100%;
+  cursor: pointer;
+}
+
+.peca-form-upload-remove:hover {
+  background-color: #f0f0f0;
+}
+
+@media (max-width: 768px) {
+  .peca-form-content-header {
+    padding: 20px;
+  }
+  .peca-form-list {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(6, auto);
+    grid-auto-flow: row;
+    gap: 16px;
+  }
+  .peca-form-info {
+    margin: 0 20px;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .peca-form-upload {
+    margin: 20px;
+    height: auto;
+    min-height: 200px;
+  }
+  .peca-form-upload-content {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .peca-form-upload-preview {
+    width: 100%;
+    max-width: 280px;
+    height: auto;
+    min-height: 180px;
+    margin-right: 0;
+  }
+  .peca-form-especificacoes h2,
+  .peca-form-dados h2,
+  .peca-form-upload h2 {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .peca-form-content-header {
+    padding: 15px;
+  }
+  .peca-form-info {
+    margin: 0 15px;
+    gap: 15px;
+  }
+  .peca-form-especificacoes,
+  .peca-form-dados {
+    padding: 15px;
+  }
+  .peca-form-upload {
+    margin: 15px;
+    padding: 15px;
+  }
+  .peca-form-list {
+    gap: 12px;
+  }
+  .peca-form-upload-preview {
+    min-height: 150px;
+  }
+  .peca-form-especificacoes h2,
+  .peca-form-dados h2,
+  .peca-form-upload h2 {
+    font-size: 17px;
+    margin-bottom: 12px;
+  }
+}

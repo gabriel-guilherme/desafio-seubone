@@ -1,0 +1,147 @@
+.pecas-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 15px;
+}
+
+.tabs {
+  display: flex;
+  gap: 5px;
+}
+
+.tab-button {
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: #555;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.tab-button:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.tab-button.active {
+  background-color: #070707;
+  color: white;
+  border-color: #070707;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-input {
+  padding: 8px 12px;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-size: 14px;
+  min-width: 200px;
+}
+
+.action-button {
+  background-color: #fff;
+  border: 1px solid #cbd5e0;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #070707;
+}
+
+.action-button.search-button {
+  background-color: #070707;
+  border-color: #070707;
+  color: white;
+}
+
+.action-button:hover {
+  background-color: #e2e8f0;
+}
+
+.action-button.search-button:hover {
+  background-color: #202020;
+}
+
+.action-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 768px) {
+  .pecas-controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+
+  .tabs {
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .tabs::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .tabs::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
+  }
+  
+  .tabs::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+  }
+
+  .actions {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .search-input {
+    flex-grow: 1;
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pecas-controls {
+    padding: 10px;
+  }
+
+  .tabs {
+    margin-left: -10px;
+    margin-right: -10px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+  .tab-button {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+
+  .search-input {
+    min-width: 0;
+    width: 100%;
+  }
+}

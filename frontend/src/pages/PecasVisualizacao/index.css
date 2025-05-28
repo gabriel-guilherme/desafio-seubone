@@ -1,0 +1,176 @@
+.pecas-visualizacao {
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.pecas-visualizacao button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.pecas-visualizacao button:hover {
+  background-color: #0056b3;
+}
+
+.pecas-visualizacao h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.pecas-visualizacao p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 2rem;
+  line-height: 1.5;
+}
+
+.visualizacao-content {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.visualizacao-tabela {
+  flex: 2 1 320px;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 600px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.visualizacao-tabela th,
+.visualizacao-tabela td {
+  padding: 0.8rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 0.95rem;
+}
+
+.visualizacao-tabela th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+  color: #333;
+}
+
+.visualizacao-tabela tr:last-child td {
+  border-bottom: none;
+}
+
+.visualizacao-imagem-stack {
+  position: relative;
+  flex: 1 1 280px;
+  width: 100%;
+  max-width: 400px;
+  aspect-ratio: 1 / 1;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 8px rgba(0,0,0,0.05);
+}
+
+.imagem-sobreposta {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .pecas-visualizacao {
+    padding: 1rem;
+  }
+
+  .pecas-visualizacao button {
+    padding: 0.7rem 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .pecas-visualizacao h2 {
+    font-size: 1.6rem;
+  }
+
+  .pecas-visualizacao p {
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .visualizacao-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .visualizacao-tabela {
+    width: 100%;
+    max-width: 100%;
+    flex-basis: auto;
+    overflow-x: auto;
+  }
+  
+  .visualizacao-tabela::-webkit-scrollbar {
+    height: 6px;
+  }
+  .visualizacao-tabela::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
+  }
+
+  .visualizacao-tabela th,
+  .visualizacao-tabela td {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .visualizacao-imagem-stack {
+    width: 100%;
+    max-width: 320px;
+    min-height: 250px;
+    flex-basis: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .pecas-visualizacao h2 {
+    font-size: 1.4rem;
+  }
+
+  .pecas-visualizacao p {
+    font-size: 0.8rem;
+  }
+  
+  .pecas-visualizacao button {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .visualizacao-tabela th,
+  .visualizacao-tabela td {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.8rem;
+  }
+  
+  .visualizacao-imagem-stack {
+    max-width: 100%;
+    min-height: 200px;
+  }
+}

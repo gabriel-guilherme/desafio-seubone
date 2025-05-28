@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.login-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 380px;
+  padding: 40px 30px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.fanation-logo {
+  margin-right: 8px;
+}
+
+.fanation-text {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333333;
+}
+
+.welcome-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: #A726D9;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.sub-text {
+  font-size: 14px;
+  color: #666666;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.input-label {
+  font-size: 12px;
+  color: #555555;
+  text-align: left;
+  margin-bottom: 8px;
+}
+
+.login-input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+}
+
+.login-input::placeholder {
+  color: #aaaaaa;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #333333;
+}
