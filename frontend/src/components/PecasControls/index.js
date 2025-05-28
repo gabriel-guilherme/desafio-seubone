@@ -45,7 +45,7 @@ export default function PecasControls({ pecasData = [], onTabChange, onSearchCha
 
   const handleFilterButtonClick = () => {
     if (onFilterClick) {
-      console.log("FOI")
+      //console.log("FOI")
       onFilterClick();
     }
   };

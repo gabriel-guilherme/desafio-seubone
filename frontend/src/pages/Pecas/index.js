@@ -32,7 +32,7 @@ export default function Pecas() {
   useEffect(() => {
     const loadPecas = async () => {
       try {
-        console.log(filter)
+        //console.log(filter)
         const data = await getGroupRecortes(page, filter)
         
         setPecasData(data.data);

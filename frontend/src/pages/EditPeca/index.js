@@ -105,12 +105,12 @@ export default function EditPeca() {
 
             const fileName = `${formData.nomeModelo}_${formData.tipoRecorte}_${formData.tecido}_${formData.corTecido}`;
             const data = await getRecorteById(id);
-            console.log(data, id, "MAAMMMAMAMAMAMMAMAMMAMAMMA22222")
+            
             const oldFileName = `${data.tipo_produto}_${data.tipo_recorte}_${data.material}_${data.cor_material}`;
             await updateRecorte(id, recortePayload);
 
             if(selectedFile) {
-                console.log("ENTROU", fileName, oldFileName)
+                //console.log("ENTROU", fileName, oldFileName)
                 await uploadRecorteFile(selectedFile, fileName, oldFileName)
             }
             

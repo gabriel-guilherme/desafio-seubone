@@ -36,7 +36,7 @@ router.post('/substituir', substituirImagem, async (req, res) => {
 router.delete('/upload', async (req, res) => {
   const { public_id } = req.body;
 
-  console.log("public id: ", public_id)
+  //console.log("public id: ", public_id)
 
   if (!public_id) {
     return res.status(400).json({ success: false, message: 'public_id é obrigatório no corpo da requisição.' });

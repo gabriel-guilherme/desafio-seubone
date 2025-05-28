@@ -54,7 +54,7 @@ const Login = () => {
         try {
             const result = await loginUser(data.email, data.password);
 
-            console.log('Login bem-sucedido:', result); 
+            //console.log('Login bem-sucedido:', result); 
             navigate('/pecas');
 
         } catch (err) {

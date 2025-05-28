@@ -64,7 +64,7 @@ exports.getGroupRecortes = async (req, res) => {
       whereParam = {}
     }
 
-    console.log(filter)
+    //console.log(filter)
 
     const [recortes, total] = await Promise.all([
       prisma.Cut.findMany({

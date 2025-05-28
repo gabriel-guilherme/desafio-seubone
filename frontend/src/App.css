@@ -28,7 +28,14 @@
 @media (max-width: 600px) {
   .app-header {
     padding: 10px 15px;
+    background-color: #f3f1fa;
+  }
+  .app-header svg{
+    display: none;
+  }
 
+  .app-header button{
+    color: black;
   }
 
 

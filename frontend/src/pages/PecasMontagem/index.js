@@ -43,7 +43,7 @@ export default function PecasMontagem() {
 
   const handleGerarImagem = () => {
     const selecionadas = pecasData.filter(p => selectedIds.includes(p.id));
-    console.log(selecionadas)
+    //console.log(selecionadas)
     navigate("/visualizacao", { state: { pecasSelecionadas: selecionadas } });
   };
 

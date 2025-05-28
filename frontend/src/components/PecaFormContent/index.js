@@ -56,8 +56,8 @@ export default function PecaFormContent({
     ];
 
 useEffect(() => {
-    console.log("selectedFile:", selectedFile);
-    console.log("existingImageUrl:", existingImageUrl);
+    //console.log("selectedFile:", selectedFile);
+    //console.log("existingImageUrl:", existingImageUrl);
 
     if (selectedFile) {
         const objectUrl = URL.createObjectURL(selectedFile);

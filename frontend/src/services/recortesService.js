@@ -34,7 +34,7 @@ export const getRecortes = async () => {
 }
 
 export const getRecorteById = async (id) => {
-    console.log(id)
+    //console.log(id)
     try {
         const response = await fetch(`${API_URL}/${id}`, {
             method: 'GET',
@@ -65,7 +65,7 @@ export const getRecorteById = async (id) => {
 }
 
 export const getGroupRecortes = async (page = 1, filter = '') => {
-    console.log("ABABA", filter)
+    //console.log("ABABA", filter)
   try {
     const queryParams = new URLSearchParams({
       page: page.toString(),
@@ -201,7 +201,7 @@ export const uploadRecorteFile = async (file, public_id, old_public_id) => {
         formData.append('nomeNovo', public_id);
         formData.append('nomeAntigo', old_public_id);
 
-        console.log("Enviando arquivo para substituição:", file);
+        //console.log("Enviando arquivo para substituição:", file);
 
         const response = await fetch(`${API_URL}/substituir?public_id=${public_id}`, {
             method: 'POST',
@@ -228,7 +228,7 @@ export const uploadRecorteFile = async (file, public_id, old_public_id) => {
 };
 
 export const deleteRecorteFile = async (public_id) => {
-    console.log(public_id)
+    //console.log(public_id)
     try {
         const response = await fetch(`${API_URL}/upload`, {
             method: 'DELETE',
@@ -239,7 +239,7 @@ export const deleteRecorteFile = async (public_id) => {
             credentials: 'include'
         });
 
-        console.log(response)
+        //console.log(response)
 
         const resultText = await response.text();
 
