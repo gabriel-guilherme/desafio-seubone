@@ -1,3 +1,4 @@
+// PecasMontagem.js
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import './index.css';
@@ -6,77 +7,108 @@ import PecasControls from "../../components/PecasControls";
 
 export default function PecasMontagem() {
   const [filteredData, setFilteredData] = useState([]);
-  const [pecasData, setPecasData] = useState([]);
+  const [pecasDataForControls, setPecasDataForControls] = useState([]);
+  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  
   const [filter, setFilter] = useState('');
   const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
   const [selectedIds, setSelectedIds] = useState([]);
+  const [selectedPecasObjects, setSelectedPecasObjects] = useState([]);
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    const loadPecas = async () => {
+    const loadAuxData = async () => {
       try {
         const data = await getRecortes();
-        setPecasData(data);
+        setPecasDataForControls(data);
       } catch (err) {
-        console.error('Erro ao carregar peças:', err);
-        setError('Não foi possível carregar as peças.');
+        console.error('Erro ao carregar dados auxiliares para montagem:', err);
+      }
+    };
+    loadAuxData();
+  }, []);
+
+  useEffect(() => {
+    const loadPecasDaPagina = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const response = await getGroupRecortes(page, filter);
+        
+        if (response && response.data && response.pagination && typeof response.pagination.pages !== 'undefined') {
+          setFilteredData(response.data);
+          setTotalPages(response.pagination.pages);
+        } else {
+          console.error('Estrutura da resposta da API para getGroupRecortes inesperada:', response);
+          setFilteredData([]);
+          setTotalPages(0);
+          setError('Não foi possível obter os dados das peças no formato esperado.');
+        }
+      } catch (err) {
+        console.error('Erro ao carregar peças para montagem:', err);
+        setError('Não foi possível carregar as peças. Tente novamente mais tarde.');
+        setFilteredData([]);
+        setTotalPages(0);
       } finally {
         setLoading(false);
       }
     };
-    loadPecas();
-  }, [])
-
-  useEffect(() => {
-    const loadPecas = async () => {
-      try {
-        const filteredData = await getGroupRecortes(page, filter);
-        setFilteredData(filteredData.data);
-      } catch (err) {
-        console.error('Erro ao carregar peças:', err);
-        setError('Não foi possível carregar as peças.');
-      }
-    };
-    loadPecas();
+    loadPecasDaPagina();
   }, [page, filter]);
 
-  const onTabChange = (event) => {
-    if (event === 'ativos') setFilter(1);
-    else if (event === 'expirados') setFilter(2);
-    else setFilter('');
+  const onTabChange = (tabName) => {
+    setPage(1);
+    if (tabName === 'ativos') {
+      setFilter(1);
+    } else if (tabName === 'expirados') {
+      setFilter(2);
+    } else {
+      setFilter('');
+    }
   };
 
-  const toggleSelection = (id) => {
-    setSelectedIds(prev =>
-      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+  const toggleSelection = (peca) => {
+    setSelectedIds(prevIds =>
+      prevIds.includes(peca.id)
+        ? prevIds.filter(id => id !== peca.id)
+        : [...prevIds, peca.id]
+    );
+    setSelectedPecasObjects(prevPecas =>
+      prevPecas.some(p => p.id === peca.id)
+        ? prevPecas.filter(p => p.id !== peca.id)
+        : [...prevPecas, peca]
     );
   };
 
   const handleGerarImagem = () => {
-    const selecionadas = filteredData.filter(p => selectedIds.includes(p.id));
-
-    
-    //console.log(selecionadas)
-    navigate("/visualizacao", { state: { pecasSelecionadas: selecionadas } });
+    navigate("/visualizacao", { state: { pecasSelecionadas: selectedPecasObjects } });
   };
 
-  if (loading) return <div>Carregando peças...</div>;
-  if (error) return <div>{error}</div>;
+  const handleNextPage = () => {
+    if (page < totalPages) {
+      setPage(prevPage => prevPage + 1);
+    }
+  };
 
-  return (
-    <div className="pecas-page">
-      <div className="pecas-header">
-        <h2>Peças gerais</h2>
-        <Link to="/pecas/add" className="btn-add">Adicionar peça</Link>
-      </div>
-
-      
-
-      <div className="pecas-table-wrapper">
-        <PecasControls pecasData={pecasData} onTabChange={onTabChange} />
+  const handlePreviousPage = () => {
+    if (page > 1) {
+      setPage(prevPage => prevPage - 1);
+    }
+  };
+  
+  let tableContent;
+  if (loading) {
+    tableContent = <div className="status-message">Carregando peças...</div>;
+  } else if (error) {
+    tableContent = <div className="status-message error-message">{error}</div>;
+  } else {
+    tableContent = (
+      <>
         <table className="pecas-table">
           <thead>
             <tr>
@@ -97,7 +129,7 @@ export default function PecasMontagem() {
                   <input
                     type="checkbox"
                     checked={selectedIds.includes(peca.id)}
-                    onChange={() => toggleSelection(peca.id)}
+                    onChange={() => toggleSelection(peca)}
                   />
                 </td>
                 <td>{`${peca.tipo_recorte}-${peca.posicao_recorte}-${peca.tipo_produto}-${peca.material}-${peca.cor_material}`.toLowerCase()}</td>
@@ -115,10 +147,43 @@ export default function PecasMontagem() {
         <button
           className="btn-gerar-img"
           onClick={handleGerarImagem}
-          disabled={selectedIds.length === 0}
+          disabled={selectedPecasObjects.length === 0 || loading}
         >
-          GERAR IMAGEM
+          GERAR IMAGEM ({selectedPecasObjects.length})
         </button>
+      </>
+    );
+  }
+
+  return (
+    <div className="pecas-page">
+      <div className="pecas-header">
+        <h2>Peças gerais para Montagem</h2>
+        <Link to="/pecas/add" className="btn-add">Adicionar peça</Link>
+      </div>
+      
+      <div className="pecas-table-wrapper">
+        <PecasControls pecasData={pecasDataForControls} onTabChange={onTabChange} />
+        
+        {tableContent}
+
+        {!loading && !error && totalPages > 0 && filteredData.length > 0 && (
+          <div className="pagination-controls">
+            <button 
+              onClick={handlePreviousPage} 
+              disabled={page === 1 || loading}
+            >
+              Anterior
+            </button>
+            <span>Página {page} de {totalPages}</span>
+            <button 
+              onClick={handleNextPage} 
+              disabled={page === totalPages || loading}
+            >
+              Próximo
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
