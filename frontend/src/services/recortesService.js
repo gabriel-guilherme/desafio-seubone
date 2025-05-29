@@ -95,6 +95,8 @@ export const createRecorte = async (data) => {
     try {
         const bodyPayload = JSON.stringify(data);
 
+        //console.log(bodyPayload)
+
         const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
@@ -194,16 +196,19 @@ export const updateRecorte = async (id, data) => {
 }
 
 
-export const uploadRecorteFile = async (file, public_id, old_public_id) => {
+export const uploadRecorteFile = async (file, public_id, old_public_id, id) => {
     try {
         const formData = new FormData();
         formData.append('imagem', file);
         formData.append('nomeNovo', public_id);
         formData.append('nomeAntigo', old_public_id);
+        formData.append('id', id);
+
+        
 
         //console.log("Enviando arquivo para substituição:", file);
 
-        const response = await fetch(`${API_URL}/substituir?public_id=${public_id}`, {
+        const response = await fetch(`${API_URL}/substituir?public_id=${public_id}&id=${id}`, {
             method: 'POST',
             body: formData,
             credentials: 'include'

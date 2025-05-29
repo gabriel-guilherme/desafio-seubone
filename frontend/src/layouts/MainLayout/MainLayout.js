@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Outlet, useNavigate, NavLink } from 'react-router-dom';
 
 import useAuthCheck from "../../hooks/useAuthCheck";
-import Sidebar from '../../components/Sidebar'; // Certifique-se que este Sidebar aceita a prop 'isOpen'
+import Sidebar from '../../components/Sidebar';
 import { logoutUser } from '../../services/authService';
 
-import './index.css'; // Seu CSS principal
-// import './HeaderButton.css'; // Criaremos este arquivo para o botão
+import './index.css';
+
 
 const LogoSvg = () => (
   <svg width="268" height="56" viewBox="0 0 268 56" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -56,20 +56,20 @@ export default function MainLayout() {
 
   return (
     <>
-      <div className='app-header'>
+      <div className='app-header' style={{display: 'block'}}>
         <button
           className="sidebar-toggle-button"
           onClick={toggleSidebar}
           aria-label={isSidebarOpen ? "Fechar menu lateral" : "Abrir menu lateral"}
           aria-expanded={isSidebarOpen}
         >
-          &#9776; {/* Ícone de hambúrguer */}
+          &#9776;
         </button>
         <LogoSvg />
       </div>
       <div className="main-content">
         <Sidebar
-          isOpen={isSidebarOpen} // Passa o estado para a Sidebar
+          isOpen={isSidebarOpen}
           footer={
             <NavLink onClick={handleLogout} to="/login" className="sidebar-link">Sair</NavLink>
           }

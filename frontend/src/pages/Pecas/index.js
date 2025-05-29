@@ -1,8 +1,8 @@
 // Pecas.js
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './index.css';
-import { getGroupRecortes } from "../../services/recortesService";
+import { getGroupRecortes, getRecortes } from "../../services/recortesService";
 import PecasControls from "../../components/PecasControls";
 
 export default function Pecas() {
@@ -19,6 +19,7 @@ export default function Pecas() {
     { id: 10, titulo: 'Modelo São Paulo', sku: '#123', tipo: 'Americano', ordem: '05', status: 'Ativo' },
   ];*/
 
+  const [filteredData, setFilteredData] = useState([]);
   const [pecasData, setPecasData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -27,20 +28,31 @@ export default function Pecas() {
 
   const navigate = useNavigate();
 
-  
+    useEffect(() => {
+      const loadPecas = async () => {
+        try {
+          const data = await getRecortes();
+          setPecasData(data);
+        } catch (err) {
+          console.error('Erro ao carregar peças:', err);
+          setError('Não foi possível carregar as peças.');
+        } finally {
+          setLoading(false);
+        }
+      };
+      loadPecas();
+    }, [])
 
   useEffect(() => {
     const loadPecas = async () => {
       try {
         //console.log(filter)
-        const data = await getGroupRecortes(page, filter)
+        const filteredData = await getGroupRecortes(page, filter)
         
-        setPecasData(data.data);
+        setFilteredData(filteredData.data);
       } catch (err) {
         console.error('Erro ao carregar peças:', err);
         setError('Não foi possível carregar as peças.'); 
-      } finally {
-        setLoading(false); 
       }
     };
     loadPecas();
@@ -89,7 +101,7 @@ export default function Pecas() {
               </tr>
             </thead>
             <tbody>
-              {pecasData.map(peca => (
+              {filteredData.map(peca => (
                 <tr key={peca.id} onClick={() => navigate(`/pecas/${peca.id}`)}>
                   <td>{`${peca.tipo_recorte}-${peca.posicao_recorte}-${peca.tipo_produto}-${peca.material}-${peca.cor_material}`.toLowerCase()}</td>
                   <td>{peca.sku}</td>

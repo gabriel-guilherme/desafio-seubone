@@ -5,7 +5,7 @@ import { Routes, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import Pecas from './pages/Pecas';
 import MainLayout from './layouts/MainLayout/MainLayout';
-import PecaForm from './pages/PecaForm';
+import CreatePeca from './pages/CreatePeca';
 import EditPeca from './pages/EditPeca';
 import PecasMontagem from './pages/PecasMontagem';
 import PecasVisualizacao from './pages/PecasVisualizacao';
@@ -18,7 +18,7 @@ const AppRoutes = () => {
         <Route element={<MainLayout />} >
           <Route path="/" element={<Pecas />} />
           <Route path="/pecas" element={<Pecas/>} />
-          <Route path="/pecas/add" element={<PecaForm/>} />
+          <Route path="/pecas/add" element={<CreatePeca/>} />
           <Route path="/pecas/:id" element={<EditPeca/>} />
           <Route path="/montagem" element={<PecasMontagem/>} />
           <Route path="/visualizacao" element={<PecasVisualizacao />} />

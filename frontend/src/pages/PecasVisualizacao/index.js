@@ -38,6 +38,7 @@ export default function PecasVisualizacao() {
               src={peca.url_imagem}
               alt={`Peça ${index}`}
               className="imagem-sobreposta"
+              style={{ zIndex: peca.ordem_exibicao }}
             />
           ))}
         </div>

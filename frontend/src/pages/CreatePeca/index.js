@@ -8,7 +8,7 @@ import PecaFormHeader from '../../components/PecaFormHeader';
 import PecaFormContent from '../../components/PecaFormContent';
 
 
-export default function PecaForm() {
+export default function CreatePeca() {
     const navigate = useNavigate();
     const [pecaKey, setPecaKey] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
@@ -62,11 +62,12 @@ export default function PecaForm() {
                 status: data.ativo
             };
 
-            await createRecorte(recortePayload);
+            const peca = await createRecorte(recortePayload);
 
             if (selectedFile) {
+                //console.log(peca)
                 const fileName = `${data.nomeModelo}_${data.tipoRecorte}_${data.tecido}_${data.corTecido}`;
-                await uploadRecorteFile(selectedFile, fileName);
+                await uploadRecorteFile(selectedFile, fileName, '', peca.id);
             }
             
             alert('Formulário submetido com sucesso!');

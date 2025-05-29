@@ -4,7 +4,6 @@ const { upload, substituirImagem } = require('../middlewares/upload')
 const authMiddleware = require('../middlewares/authMiddleware')
 const recorteController = require('../controllers/recorteController')
 //const { deleteCloudinaryFile } = require('../middlewares/upload');
-const cloudinary = require('../lib/cloudinary');
 
 const { uploadImage } = require('../middlewares/upload');
 //const deleteImage = require('../middlewares/deleteImage'); // se quiser usar também

@@ -29,6 +29,8 @@
   .app-header {
     padding: 10px 15px;
     background-color: #f3f1fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
+    display: none;
   }
   .app-header svg{
     display: none;

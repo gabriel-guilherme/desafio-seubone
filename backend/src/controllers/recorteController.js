@@ -11,17 +11,22 @@ exports.createRecorte = async (req, res) => {
   try {
     let data = req.body
 
-    const { tipo_produto, tipo_recorte, material, cor_material, sku } = data
+    
+
+    //console.log(data)
+
+    //const { tipo_produto, tipo_recorte, material, cor_material, sku } = data
 
     const recorteExistente = await prisma.Cut.findFirst({
-      where: { sku: sku },
+      where: { sku: data.sku },
     })
     if (recorteExistente) {
       return res.status(400).json({ error: 'Recorte já existe com esse SKU' })
     }
 
     if (!data.url_imagem) {
-      data.url_imagem = gerarLinkImagem(tipo_produto, tipo_recorte, material, cor_material)
+      data.url_imagem = ''
+      /*data.url_imagem = gerarLinkImagem(tipo_produto, tipo_recorte, material, cor_material)*/
     }
 
     const recorte = await prisma.Cut.create({ data: data })

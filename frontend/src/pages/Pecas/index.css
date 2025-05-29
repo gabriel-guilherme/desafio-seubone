@@ -28,6 +28,7 @@
     border: 1px solid #e2e8f0;
     border-radius: 20px;
     width: 100%;
+    box-shadow: 0 0 8px rgba(0,0,0,0.05);
 }
 
 .add-peca-button {
@@ -40,6 +41,7 @@
   font-size: 14px;
   font-weight: 500;
   text-decoration: none;
+  font-weight: bold;
 }
 
 .add-peca-button:hover {

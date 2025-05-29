@@ -9,10 +9,8 @@ export default function useRedirectIfAuth() {
   useEffect(() => {
     axios.get('http://localhost:4000/auth/check-auth', { withCredentials: true })
       .then(() => {
-        navigate('/pecas'); // já está logado vai pra home
+        navigate('/pecas');
       })
-      .catch(() => {
-        // não está logado fica na página
-      });
+      .catch(() => {});
   }, [navigate]);
 }

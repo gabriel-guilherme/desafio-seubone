@@ -19,7 +19,7 @@ export default function PecasControls({ pecasData = [], onTabChange, onSearchCha
   const [searchTerm, setSearchTerm] = useState('');
 
   const pecasAtivas = pecasData.filter(peca => peca.status === 1).length;
-  const pecasExpiradas = pecasData.filter(peca => peca.status === 0).length;
+  const pecasExpiradas = pecasData.filter(peca => peca.status === 2).length;
   const totalPecas = pecasData.length;
 
   const handleTabClick = (tabName) => {

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import './index.css';
-import { getGroupRecortes } from "../../services/recortesService";
+import { getGroupRecortes, getRecortes } from "../../services/recortesService";
 import PecasControls from "../../components/PecasControls";
 
 export default function PecasMontagem() {
+  const [filteredData, setFilteredData] = useState([]);
   const [pecasData, setPecasData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,13 +18,26 @@ export default function PecasMontagem() {
   useEffect(() => {
     const loadPecas = async () => {
       try {
-        const data = await getGroupRecortes(page, filter);
-        setPecasData(data.data);
+        const data = await getRecortes();
+        setPecasData(data);
       } catch (err) {
         console.error('Erro ao carregar peças:', err);
         setError('Não foi possível carregar as peças.');
       } finally {
         setLoading(false);
+      }
+    };
+    loadPecas();
+  }, [])
+
+  useEffect(() => {
+    const loadPecas = async () => {
+      try {
+        const filteredData = await getGroupRecortes(page, filter);
+        setFilteredData(filteredData.data);
+      } catch (err) {
+        console.error('Erro ao carregar peças:', err);
+        setError('Não foi possível carregar as peças.');
       }
     };
     loadPecas();
@@ -42,7 +56,9 @@ export default function PecasMontagem() {
   };
 
   const handleGerarImagem = () => {
-    const selecionadas = pecasData.filter(p => selectedIds.includes(p.id));
+    const selecionadas = filteredData.filter(p => selectedIds.includes(p.id));
+
+    
     //console.log(selecionadas)
     navigate("/visualizacao", { state: { pecasSelecionadas: selecionadas } });
   };
@@ -57,9 +73,10 @@ export default function PecasMontagem() {
         <Link to="/pecas/add" className="btn-add">Adicionar peça</Link>
       </div>
 
-      <PecasControls pecasData={pecasData} onTabChange={onTabChange} />
+      
 
       <div className="pecas-table-wrapper">
+        <PecasControls pecasData={pecasData} onTabChange={onTabChange} />
         <table className="pecas-table">
           <thead>
             <tr>
@@ -71,7 +88,7 @@ export default function PecasMontagem() {
             </tr>
           </thead>
           <tbody>
-            {pecasData.map((peca) => (
+            {filteredData.map((peca) => (
               <tr
                 key={peca.id}
                 className={selectedIds.includes(peca.id) ? 'selected' : ''}

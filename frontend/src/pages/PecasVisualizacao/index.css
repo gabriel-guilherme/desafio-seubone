@@ -7,7 +7,7 @@
 }
 
 .pecas-visualizacao button {
-  background-color: #007bff;
+  background-color: #070707;
   color: white;
   border: none;
   padding: 0.6rem 1.2rem;
@@ -56,8 +56,19 @@
 .visualizacao-tabela td {
   padding: 0.8rem 1rem;
   text-align: left;
-  border-bottom: 1px solid #eee;
   font-size: 0.95rem;
+}
+
+.visualizacao-tabela tr::after {
+  content: '';
+  position: absolute;
+  bottom: 0; 
+  height: 1px; 
+  background-color: #d1d7df; 
+
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%; 
 }
 
 .visualizacao-tabela th {

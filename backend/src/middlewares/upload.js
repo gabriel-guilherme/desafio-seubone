@@ -2,12 +2,7 @@ const multer = require('multer');
 const { CloudinaryStorage } = require('multer-storage-cloudinary');
 const cloudinary = require('../lib/cloudinary');
 
-function getPublicIdFromUrl(url) {
-  const regex = /.*\/upload\/(?:v\d+\/)?([^\.]+)/;
-  const match = url.match(regex);
-  return match ? match[1] : null;
-}
-
+const prisma = require('../lib/prisma');
 
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
@@ -28,6 +23,11 @@ const uploadImage = upload.single('imagem');
 
 const substituirImagem = async (req, res) => {
   const nomeAntigo = req.query.nomeAntigo;
+  const id  = req.query.id
+
+  //console.log(req.body)
+  //console.log(req.query)
+
 
   try {
 
@@ -43,19 +43,36 @@ const substituirImagem = async (req, res) => {
     }
 
 
-    upload.single('imagem')(req, res, (err) => {
+    upload.single('imagem')(req, res, async (err) => {
       if (err) {
         return res.status(400).json({ error: `Erro no upload: ${err.message}` });
       }
 
-      if (!req.file) {
-        return res.status(400).json({ error: 'Nenhum arquivo enviado' });
+      let path = '';
+      let filename = '';
+
+      if (req.file) {
+        path = req.file.path;
+        filename = req.file.filename;
+      }
+
+      try {
+        await prisma.Cut.update({
+          where: { id: Number(id) },
+          data: {
+            url_imagem: path,
+          },
+        });
+      } catch (updateErr) {
+        return res.status(500).json({ error: 'Erro ao atualizar imagem no banco: ' + updateErr.message });
       }
 
       return res.status(201).json({
-        message: 'Upload bem-sucedido após exclusão da antiga!',
-        link: req.file.path,
-        public_id: req.file.filename,
+        message: req.file
+          ? 'Upload bem-sucedido após exclusão da antiga!'
+          : 'Imagem antiga excluída. Nenhum novo arquivo enviado.',
+        link: path,
+        public_id: filename,
       });
     });
 
@@ -63,45 +80,6 @@ const substituirImagem = async (req, res) => {
     return res.status(500).json({ error: 'Erro no servidor: ' + err.message });
   }
 };
-
-async function deleteImageMiddleware(req, res, next) {
-  const publicId = req.body.public_id || req.query.public_id;
-
-  if (!publicId) {
-    return res.status(400).json({ error: 'Parâmetro "public_id" é obrigatório para exclusão.' });
-  }
-
-  try {
-    const result = await cloudinary.uploader.destroy(publicId, {
-      resource_type: 'image',
-      invalidate: true,
-    });
-
-    if (result.result === 'ok') {
-      req.deletedInfo = {
-        status: 'sucesso',
-        message: `Imagem '${publicId}' excluída com sucesso.`,
-      };
-      return next();
-    } else if (result.result === 'not found') {
-      req.deletedInfo = {
-        status: 'nao_encontrado',
-        message: `Imagem '${publicId}' não encontrada.`,
-      };
-      return next();
-    } else {
-      return res.status(500).json({
-        error: `Erro inesperado ao excluir imagem '${publicId}'`,
-        cloudinaryResponse: result,
-      });
-    }
-  } catch (err) {
-    console.error(`Erro ao excluir imagem '${publicId}':`, err);
-    return res.status(500).json({
-      error: `Erro ao excluir imagem '${publicId}': ${err.message}`,
-    });
-  }
-}
 
 module.exports = {
     upload,

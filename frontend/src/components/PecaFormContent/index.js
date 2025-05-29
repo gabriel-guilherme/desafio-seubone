@@ -56,25 +56,18 @@ export default function PecaFormContent({
     ];
 
 useEffect(() => {
-    //console.log("selectedFile:", selectedFile);
-    //console.log("existingImageUrl:", existingImageUrl);
-
     if (selectedFile) {
         const objectUrl = URL.createObjectURL(selectedFile);
         setImagePreviewUrl(objectUrl);
         setIsPreviewingExisting(false);
         setIsLoadingPreview(false);
         return () => URL.revokeObjectURL(objectUrl);
-    } 
-    
-    else if (existingImageUrl) {
-        const bustCacheUrl = existingImageUrl;
+    } else if (existingImageUrl) {
+        const bustCacheUrl = `${existingImageUrl}?t=${Date.now()}`;
         setImagePreviewUrl(bustCacheUrl);
         setIsPreviewingExisting(true);
         setIsLoadingPreview(false);
-    } 
-    
-    else {
+    } else {
         setImagePreviewUrl(null);
         setIsPreviewingExisting(false);
         setIsLoadingPreview(false);

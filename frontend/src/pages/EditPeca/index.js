@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 import './index.css';
-import { updateRecorte, uploadRecorteFile, getRecorteById } from '../../services/recortesService';
+import { updateRecorte, uploadRecorteFile, getRecorteById, deleteRecorte } from '../../services/recortesService';
 import PecaFormHeader from '../../components/PecaFormHeader';
 import PecaFormContent from '../../components/PecaFormContent';
 
@@ -57,7 +57,7 @@ export default function EditPeca() {
                         sku: data.sku || '',
                     });
                     if (data.url_imagem) { 
-                        setExistingImageUrl(data.url_imagem + '.png');
+                        setExistingImageUrl(data.url_imagem);
                     }
                 } else {
                     setError('Peça não encontrada. Verifique o ID fornecido.');
@@ -108,10 +108,12 @@ export default function EditPeca() {
             
             const oldFileName = `${data.tipo_produto}_${data.tipo_recorte}_${data.material}_${data.cor_material}`;
             await updateRecorte(id, recortePayload);
+            
 
-            if(selectedFile) {
+            if(selectedFile || imageExistingWasRemoved) {
                 //console.log("ENTROU", fileName, oldFileName)
-                await uploadRecorteFile(selectedFile, fileName, oldFileName)
+                
+                await uploadRecorteFile(selectedFile, fileName, oldFileName, id)
             }
             
             
@@ -135,6 +137,15 @@ export default function EditPeca() {
             setIsSubmitting(false);
         }
     };
+
+    const handleDelete = async () => {
+        try {
+            await deleteRecorte(id)
+            navigate("/pecas")
+        } catch(error) {
+            setError("Um ID de peça é obrigatório para acessar esta página de edição. Por favor, verifique a URL ou retorne à lista de peças.");
+        }
+    }
 
     const handleFileSelected = (file) => {
         setSelectedFile(file);
@@ -179,6 +190,7 @@ export default function EditPeca() {
                 onDiscard={() => navigate('/pecas')}
                 submitError={submitError}
                 isEditing={true}
+                onDelete={handleDelete}
             />
             <PecaFormContent
                 control={control}

@@ -26,6 +26,8 @@
   border-radius: 10px;
   padding: 16px;
   box-shadow: 0 0 8px rgba(0,0,0,0.05);
+  width: 100%;
+  border: 1px solid #e2e8f0;
 }
 
 .pecas-table {
@@ -38,9 +40,21 @@
   text-align: left;
 }
 
+tbody tr::after {
+  content: '';
+  position: absolute;
+  bottom: 0; 
+  height: 1px; 
+  background-color: #d1d7df; 
+
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%; 
+}
+
 .pecas-table th, .pecas-table td {
   padding: 12px;
-  border-bottom: 1px solid #eee;
+  /*border-bottom: 1px solid #eee;*/
   white-space: nowrap;
 }
 
@@ -113,6 +127,8 @@ input[type="checkbox"] {
     background: white;
     box-shadow: 0 0 8px rgba(0,0,0,0.05);
     margin-top: 20px;
+    width: 100%;
+    border: 1px solid #e2e8f0;
   }
 
   .pecas-table-wrapper::-webkit-scrollbar {
@@ -137,7 +153,7 @@ input[type="checkbox"] {
     padding: 10px;
     font-size: 0.9rem;
     white-space: nowrap;
-    border-bottom: 1px solid #eee;
+    /*border-bottom: 1px solid #eee;*/
   }
 
   .pecas-table th:first-child, .pecas-table td:first-child {

@@ -8,9 +8,9 @@ export default function useAuthCheck() {
 
   useEffect(() => {
     axios.get('http://localhost:4000/auth/check-auth', { withCredentials: true })
-      .then(() => setLoading(false)) // autenticado libera pagina
+      .then(() => setLoading(false))
       .catch(() => {
-        navigate('/login'); // nao autenticado manda pro login
+        navigate('/login');
       });
   }, [navigate]);
 
